@@ -16,26 +16,30 @@ Gelir dilimleri                                                                 
 
 def incomeTax(money):
     if money > 32000:
+        taxes = (32000 * 15)
         if money > 70000:
+            taxes += (38000 * 20)
             if money > 170000:
+                taxes += (100000 * 27)
                 if money > 880000:
-                    return ((32000 * 15) + (38000 * 20) + (100000 * 27) + (710000 * 35) + ((money - 880000) * 40)) / 100
+                    taxes += (710000 * 35) + ((money - 880000) * 40)
                 else:
-                    return ((32000 * 15) + (38000 * 20) + (100000 * 27) + ((money - 170000) * 35)) / 100
+                    taxes += ((money - 170000) * 35)
             else:
-                return ((32000 * 15) + (38000 * 20) + ((money - 70000) * 27)) / 100
+                taxes += ((money - 70000) * 27)
         else:
-            return ((32000 * 15) + ((money - 32000) * 20)) / 100
+            taxes += ((money - 32000) * 20)
+        return taxes / 100
     else:
         return money * 15 / 100
 
 
-print(f"Tax for 31900 TL income {int(incomeTax(31900))}, Salary remaining after deduction of income tax is {int(31900-incomeTax(31900))}")
-print(f"Tax for 32000 TL income {int(incomeTax(32000))}, Salary remaining after deduction of income tax is {int(32000-incomeTax(32000))}")
-print(f"Tax for 32100 TL income {int(incomeTax(32100))}, Salary remaining after deduction of income tax is {int(32100-incomeTax(32100))}")
-print(f"Tax for 70000 TL income {int(incomeTax(70000))}, Salary remaining after deduction of income tax is {int(70000-incomeTax(70000))}")
-print(f"Tax for 70100 TL income {int(incomeTax(70100))}, Salary remaining after deduction of income tax is {int(70100-incomeTax(70100))}")
-print(f"Tax for 170000 TL income {int(incomeTax(170000))}, Salary remaining after deduction of income tax is {int(170000-incomeTax(170000))}")
-print(f"Tax for 170100 TL income {int(incomeTax(170100))}, Salary remaining after deduction of income tax is {int(170100-incomeTax(170100))}")
-print(f"Tax for 880000 TL income {int(incomeTax(880000))}, Salary remaining after deduction of income tax is {int(880000-incomeTax(880000))}")
-print(f"Tax for 880100 TL income {int(incomeTax(880100))}, Salary remaining after deduction of income tax is {int(880100-incomeTax(880100))}")
+def printTax(grosIncome):
+    tax = int(incomeTax(grosIncome))
+    left = int(31900 - tax)
+    print(f"Tax for 31900 TL income {tax}, Salary remaining after deduction of income tax is {income}")
+
+incomes = [31900, 32000, 32100, 70000, 70100, 170000, 170100, 880000, 880100]
+
+for income in incomes:
+    printTax(income)
