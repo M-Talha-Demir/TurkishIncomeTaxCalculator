@@ -13,25 +13,25 @@ Gelir dilimleri                                                                 
 
 """
 
+taxBracketDiffs = [(32000, 15), (38000, 20), (100000, 27), (710000, 35)]
+incomes = [31900, 32000, 32100, 70000, 70100, 170000, 170100, 880000, 880100]
 
 def incomeTax(money):
-    if money > 32000:
-        taxes = (32000 * 15)
-        if money > 70000:
-            taxes += (38000 * 20)
-            if money > 170000:
-                taxes += (100000 * 27)
-                if money > 880000:
-                    taxes += (710000 * 35) + ((money - 880000) * 40)
-                else:
-                    taxes += ((money - 170000) * 35)
-            else:
-                taxes += ((money - 70000) * 27)
+    bracketIndex = 0
+    taxes = 0
+    while money > 0:
+        bracket = taxBracketDiffs[bracketIndex]
+        if money > bracket[0]:
+            taxes += bracket[0] * bracket[1]
+            money -= bracket[0]
+            bracketIndex += 1
+            if bracketIndex >= len(taxBracketDiffs):
+                taxes += money * 40
+                break
         else:
-            taxes += ((money - 32000) * 20)
-        return taxes / 100
-    else:
-        return money * 15 / 100
+            taxes += money * bracket[1]
+            break
+    return taxes / 100
 
 
 def printTax(grosIncome):
@@ -39,7 +39,6 @@ def printTax(grosIncome):
     netIncome = int(grosIncome - tax)
     print(f"Tax for {grosIncome} TL income {tax}, Salary remaining after deduction of income tax is {netIncome}")
 
-incomes = [31900, 32000, 32100, 70000, 70100, 170000, 170100, 880000, 880100]
 
 for income in incomes:
     printTax(income)
