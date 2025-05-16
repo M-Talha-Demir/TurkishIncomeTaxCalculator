@@ -36,8 +36,8 @@ def incomeTax(money):
 
 def printTax(grosIncome):
     tax = int(incomeTax(grosIncome))
-    left = int(31900 - tax)
-    print(f"Tax for 31900 TL income {tax}, Salary remaining after deduction of income tax is {income}")
+    netIncome = int(grosIncome - tax)
+    print(f"Tax for {grosIncome} TL income {tax}, Salary remaining after deduction of income tax is {netIncome}")
 
 incomes = [31900, 32000, 32100, 70000, 70100, 170000, 170100, 880000, 880100]
 
